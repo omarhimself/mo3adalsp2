@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>حساب معدل سنة ثانية فيزياء (صلوا على رسول اللّه)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Rubik:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Theme (emerald + navy) */
+      --bg1:#ecfdf5;        /* very light mint */
+      --bg2:#e0f2fe;        /* very light sky */
+      --ink:#0f172a;        /* slate-900 */
+      --muted:#334155;      /* slate-700 */
+      --card: rgba(255,255,255,0.96);
+
+      --accent1:#0ea5a4;    /* teal */
+      --accent2:#1d4ed8;    /* blue */
+      --accent3:#10b981;    /* emerald */
+
+      --border:#dbeafe;
+      --shadow: 0 10px 30px rgba(15,23,42,0.10), 0 2px 10px rgba(15,23,42,0.06);
+
+      --radius: 18px;
+    }
+
+    body{
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+      font-family:'Cairo','Rubik',Tahoma,Arial,sans-serif;
+      font-size:1.6em;
+      margin:0; padding:0;
+      color:var(--ink);
+      direction:rtl;
+    }
+
+    h2{
+      text-align:center;
+      margin-top:36px;
+      font-weight:900;
+      letter-spacing:1px;
+      font-size:2.4em;
+      color: var(--ink);
+    }
+
+    table{
+      border-collapse:collapse;
+      width:94%;
+      margin:40px auto 18px auto;
+      background: var(--card);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      font-size:1.25em;
+      direction:rtl;
+    }
+
+    th,td{
+      border:1px solid var(--border);
+      padding:18px 10px;
+      text-align:center;
+      font-size:1.1em;
+      direction:rtl;
+    }
+
+    th{
+      color:#fff;
+      font-size:1.16em;
+      font-weight:900;
+      letter-spacing:0.5px;
+      background: linear-gradient(90deg, var(--accent1) 0%, var(--accent2) 100%);
+      border-bottom: 4px solid rgba(16,185,129,0.55);
+      text-shadow: 0 1px 8px rgba(15,23,42,0.35);
+    }
+
+    tbody tr:nth-child(even){ background:#f8fafc; }
+    tbody tr:nth-child(odd){ background:#f1f5f9; }
+    tbody tr:hover{ background:#e2e8f0; transition:background 0.2s; }
+
+    input[type="number"]{
+      width:78px;
+      padding:10px;
+      border-radius:12px;
+      border:2px solid rgba(14,165,164,0.45);
+      font-size:1.12em;
+      text-align:center;
+      background:#ffffff;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06);
+      transition:border 0.2s, box-shadow 0.2s;
+      font-weight:700;
+      color: var(--ink);
+    }
+
+    input[type="number"]:focus{
+      border:2.5px solid var(--accent1);
+      outline:none;
+      box-shadow: 0 0 0 3px rgba(14,165,164,0.20);
+      background:#ffffff;
+    }
+
+    tfoot td{
+      font-weight:900;
+      color:#fff;
+      font-size:1.28em;
+      letter-spacing:0.5px;
+      background: linear-gradient(90deg, #0f172a 0%, #0ea5a4 100%);
+      border-top: 4px solid rgba(14,165,164,0.55);
+    }
+
+    .final-result{
+      border-radius: 12px;
+      font-size: 1.35em;
+      padding: 14px 0;
+      border: 3px solid transparent;
+      transition: background 0.4s, color 0.4s, border 0.4s, box-shadow 0.4s;
+    }
+
+    .final-green{
+      background: linear-gradient(90deg, rgba(16,185,129,0.18) 0%, rgba(14,165,164,0.18) 100%) !important;
+      color: #064e3b !important;
+      border-color: rgba(16,185,129,0.55) !important;
+      box-shadow: 0 0 18px rgba(16,185,129,0.20);
+    }
+
+    .final-red{
+      background: linear-gradient(90deg, rgba(239,68,68,0.18) 0%, rgba(244,63,94,0.18) 100%) !important;
+      color: #7f1d1d !important;
+      border-color: rgba(239,68,68,0.55) !important;
+      box-shadow: 0 0 18px rgba(239,68,68,0.20);
+    }
+
+    .save-buttons{
+      width:94%;
+      margin:26px auto 20px auto;
+      text-align:right;
+    }
+
+    .save-buttons button{
+      font-size:1.12em;
+      margin-left:14px;
+      background: linear-gradient(90deg, var(--accent1) 0%, var(--accent2) 100%);
+      color:#fff;
+      border:none;
+      border-radius:14px;
+      padding:14px 28px;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(29,78,216,0.14);
+      transition: transform 0.12s, filter 0.2s;
+      font-family:'Rubik','Cairo',Arial,sans-serif;
+      font-weight:700;
+      letter-spacing:0.5px;
+    }
+
+    .save-buttons button:disabled{ opacity:0.5; cursor:not-allowed; }
+    .save-buttons button:hover:enabled{ transform: translateY(-1px); filter: brightness(1.05); }
+
+    @media (max-width:700px){
+      table,.save-buttons{ width:99%; font-size:1em; }
+      th,td{ padding:10px 3px; font-size:1em; }
+      h2{ font-size:1.3em; }
+    }
+
+    @media print{
+      body{ background:#fff !important; color:#000 !important; font-size:1.2em !important; }
+      .save-buttons{ display:none !important; }
+      table{ box-shadow:none !important; background:#fff !important; }
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const btns = document.querySelectorAll('.save-buttons button');
+      if (document.fonts) {
+        document.fonts.ready.then(() => btns.forEach(btn => btn.disabled = false));
+      } else {
+        btns.forEach(btn => btn.disabled = false);
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <h2>حساب معدل سنة ثانية فيزياء (صلوا على رسول اللّه)</h2>
+
+
+
+  <table id="grades-main-table">
+    <thead>
+      <tr>
+        <th>المقياس</th>
+        <th>الإمتحان الأول</th>
+        <th>الإمتحان الثاني</th>
+        <th>CC</th>
+        <th>معدل المقياس</th>
+        <th>المعامل</th>
+        <th>المجموع</th>
+      </tr>
+    </thead>
+
+    <tbody id="grades-table">
+      <tr>
+        <td>إلكترونيك</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>4</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>إلكتروشيمي</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>3</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>توازنات</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>4</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>رياضيات</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>4</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>ضوء</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>3</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>اهتزازات</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>3</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>إعلام آلي</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>2</td>
+        <td class="total"></td>
+      </tr>
+
+      <tr>
+        <td>علم النفس</td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td><input type="number"  min="0" max="20"></td>
+        <td class="average"></td>
+        <td>2</td>
+        <td class="total"></td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="6">المجموع النهائي</td>
+        <td id="final-sum" class="final-result"></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="save-buttons">
+    <button onclick="saveTableAsImage()" disabled>حفظ الجدول كصورة</button>
+    <button onclick="saveTableAsPDF()" disabled>حفظ الجدول PDF</button>
+    <button onclick="window.print()">طباعة / حفظ PDF</button>
+  </div>
+
+  <script>
+    function numOrZero(x){
+      const v = parseFloat(x);
+      return Number.isFinite(v) ? v : 0;
+    }
+
+    function calculateAverages(){
+      let grandTotal = 0;
+
+      document.querySelectorAll("#grades-table tr").forEach(row => {
+        const tds = row.querySelectorAll("td");
+
+        const exam1 = numOrZero(tds[1].querySelector("input")?.value);
+        const exam2 = numOrZero(tds[2].querySelector("input")?.value);
+        const td    = numOrZero(tds[3].querySelector("input")?.value);
+
+        const avg = (exam1 + exam2 + td) / 3;
+        row.querySelector(".average").textContent = avg.toFixed(2);
+
+        const coeff = numOrZero(tds[5].textContent);
+        const total = avg * coeff;
+        row.querySelector(".total").textContent = total.toFixed(2);
+
+        grandTotal += total;
+      });
+
+      const finalSumCell = document.getElementById("final-sum");
+      const finalValueNum = grandTotal / 25;
+      finalSumCell.textContent = finalValueNum.toFixed(2);
+
+      finalSumCell.classList.remove('final-green','final-red');
+      if (finalValueNum >= 10) finalSumCell.classList.add('final-green');
+      else finalSumCell.classList.add('final-red');
+    }
+
+    document.querySelectorAll("input[type='number']").forEach(input => {
+      input.addEventListener("input", calculateAverages);
+    });
+    calculateAverages();
+
+    function saveTableAsImage(){
+      const table = document.getElementById('grades-main-table');
+      table.style.direction = 'rtl';
+      table.style.fontFamily = "'Cairo','Rubik',Tahoma,Arial,sans-serif";
+      html2canvas(table, { scale:2, useCORS:true }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'grades-table.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+
+    function saveTableAsPDF(){
+      const table = document.getElementById('grades-main-table');
+      table.style.direction = 'rtl';
+      table.style.fontFamily = "'Cairo','Rubik',Tahoma,Arial,sans-serif";
+      html2canvas(table, { scale:2, useCORS:true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new window.jspdf.jsPDF({
+          orientation:'landscape',
+          unit:'pt',
+          format:[canvas.width, canvas.height]
+        });
+        pdf.addImage(imgData,'PNG',0,0,canvas.width,canvas.height);
+        pdf.save('grades-table.pdf');
+      });
+    }
+  </script>
+</body>
+</html>
